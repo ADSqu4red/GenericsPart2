@@ -19,5 +19,18 @@ public class Main {
 
         Team<SoccerPlayer> brokenTeam = new Team<>("This wont work");
         brokenTeam.addPlayer(beckham);
+
+        Team<FootballPlayer> hawthorn = new Team<>("Hawthorn");
+        Team<FootballPlayer> fremantle = new Team<>("Fremantle");
+
+        //hawthorn.matchResult(baseballTeam, 1, 0); // This doesnt work because baseball team isnt the same as the
+        // football team type
+
+        adelaideCrows.matchResult(hawthorn, 4,0);
+
+        System.out.println("Rankings");
+        System.out.println(adelaideCrows.getName() + ": " + adelaideCrows.ranking());
+
+        System.out.println(adelaideCrows.compareTo(hawthorn));
     }
 }

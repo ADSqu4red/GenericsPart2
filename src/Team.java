@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * @author ADSquared on 10/23/2020
  */
-public class Team<T extends Player> {
+public class Team<T extends Player> implements Comparable<Team<T>> {
 
     private String name;
     int played = 0;
@@ -22,7 +22,7 @@ public class Team<T extends Player> {
     }
 
     public boolean addPlayer(T player) {
-        if(members.contains(player)) {
+        if (members.contains(player)) {
             System.out.println(player.getName() + " Already exists.");
             return false;
         } else {
@@ -36,21 +36,33 @@ public class Team<T extends Player> {
         return this.members.size();
     }
 
-    public void matchResult(Team opponent, int ourScore, int theirScore) {
-        if(ourScore > theirScore) {
+    public void matchResult(Team<T> opponent, int ourScore, int theirScore) { // The use of Team<T> forces the type
+        // of the team to be the same.
+        if (ourScore > theirScore) {
             won++;
-        } else if(ourScore == theirScore) {
+        } else if (ourScore == theirScore) {
             tied++;
         } else {
             lost++;
         }
         played++;
-        if(opponent != null) {
+        if (opponent != null) {
             opponent.matchResult(null, theirScore, ourScore);
         }
     }
 
     public int ranking() {
         return (won * 2) + tied;
+    }
+
+    @Override
+    public int compareTo(Team<T> team) {
+        if (this.ranking() > team.ranking()) {
+            return -1;
+        } else if (this.ranking() < team.ranking()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
